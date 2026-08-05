@@ -1,0 +1,54 @@
+{
+  "name": "snb-exchange-rate",
+  "version": "1.0.1",
+  "description": "Official Swiss National Bank (Switzerland) daily exchange rates — ~25 (monthly) currencies vs CHF, history since 1914. Zero-dependency Node.js/TypeScript client.",
+  "keywords": [
+    "snb",
+    "swiss",
+    "national",
+    "bank",
+    "exchange-rate",
+    "exchange-rates",
+    "currency",
+    "forex",
+    "fx",
+    "chf",
+    "central-bank",
+    "official-rates",
+    "switzerland",
+    "api",
+    "typescript"
+  ],
+  "homepage": "https://allratestoday.com/central-bank-rates-api/snb/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AllRates-Today/snb-exchange-rate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AllRates-Today/snb-exchange-rate/issues"
+  },
+  "license": "MIT",
+  "author": "AllRatesToday <hello@allratestoday.com> (https://allratestoday.com)",
+  "type": "module",
+  "main": "./index.cjs",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.mjs",
+      "require": "./index.cjs"
+    }
+  },
+  "files": [
+    "index.mjs",
+    "index.cjs",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false
+}
