@@ -1,65 +1,247 @@
-# Swiss National Bank Exchange Rate API client
+# Swiss National Bank Exchange Rate API — snb-exchange-rate
 
-Official **Swiss National Bank** (Switzerland) monthly exchange rates in Node.js / TypeScript — 26 currencies against the CHF, with history back to 1914. Zero dependencies, works in Node 18+, Bun, Deno, and edge runtimes (uses global `fetch`).
+[![npm version](https://img.shields.io/npm/v/snb-exchange-rate.svg)](https://www.npmjs.com/package/snb-exchange-rate)
+[![license](https://img.shields.io/npm/l/snb-exchange-rate.svg)](https://github.com/AllRates-Today/snb-exchange-rate/blob/main/LICENSE)
+[![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)](https://www.npmjs.com/package/snb-exchange-rate)
+[![TypeScript](https://img.shields.io/badge/TypeScript-types%20included-3178C6.svg)](https://www.typescriptlang.org/)
 
-These are the *published central bank rates* required for tax filings, customs valuations, audits, and compliant invoicing — not moving market rates. Every response carries the publisher's own publication date.
+**Official Swiss National Bank (Switzerland) monthly exchange rates for Node.js and TypeScript. The published central bank rates behind tax filings, customs valuations, audits, and compliant invoicing — not market estimates, but the numbers Swiss National Bank itself prints, every month.**
 
-Powered by [AllRatesToday](https://allratestoday.com/central-bank-rates-api/snb/). Get a free API key at [allratestoday.com/register](https://allratestoday.com/register) — no credit card required.
+## 🚀 Why this client?
 
-## Install
+- 🏛️ **Official published rates** — Swiss National Bank's own table, with the publisher's own `rate_date` on every response
+- 📅 **History back to 1914** — point-in-time tables and daily series for any past date
+- 🔀 **Published vs derived, always flagged** — computed inverse/cross pairs carry `derived: true`, never mixed with official prints
+- ⚡ **Zero dependencies** — pure ESM + CJS over global `fetch`; Node 18+, Bun, Deno, and edge runtimes
+- 🔷 **Type-safe** — full TypeScript definitions shipped with the package
+- 🧾 **Compliance-grade metadata** — `rate_type`, publication date, and source disclaimer on every response
+
+## 🔑 Get your API key
+
+Get a free API key at [allratestoday.com/register](https://allratestoday.com/register) — no credit card required. Latest rates are on every plan, including free.
+
+## 📦 Installation
 
 ```bash
 npm install snb-exchange-rate
 ```
 
-## Quick start
+```bash
+yarn add snb-exchange-rate
+```
+
+```bash
+pnpm add snb-exchange-rate
+```
+
+Also published under the org scope as [`@allratestoday/snb-exchange-rate`](https://www.npmjs.com/package/@allratestoday/snb-exchange-rate) — same code, same versions.
+
+## 🏁 Quick start
 
 ```js
-import { getRate, getLatestRates } from 'snb-exchange-rate';
+import { getRate } from 'snb-exchange-rate';
 
-// One pair at the official Swiss National Bank rate
 const pair = await getRate('EUR', 'CHF', { apiKey: 'art_live_...' });
-console.log(pair.rate, pair.rate_date); // e.g. EUR -> CHF on the bank's own date
+console.log(pair.rate, pair.rate_date); // the official Swiss National Bank rate, on the central bank's own date
+```
 
-// The bank's full published table
+## 📚 API reference
+
+- [Latest pair rate](#latest-pair-rate) — one pair from the latest published table
+- [Full published table](#full-published-table) — everything the central bank printed, in one call
+- [Table for a date](#table-for-a-date) — the official table for an invoice or filing date
+- [Daily time series](#daily-time-series) — one pair across a date range
+
+---
+
+### Latest pair rate
+
+Free plan and up. Pairs the central bank does not print directly are resolved from its table and flagged (see *Published vs derived rates* below).
+
+```js
+const pair = await getRate('EUR', 'CHF', { apiKey: 'art_live_...' });
+```
+
+**Response:**
+
+```javascript
+{
+  bank: 'snb',
+  name: 'Swiss National Bank',
+  rate_date: '2026-07-31',   // Swiss National Bank's own publication date
+  source: 'EUR',
+  target: 'CHF',
+  rate: 0.92538,
+  rate_type: 'monthly_average',
+  derived: false,
+  method: 'published',
+  disclaimer: '…'
+}
+```
+
+### Full published table
+
+Free plan and up. The complete table for the latest publication date.
+
+```js
+import { getLatestRates } from 'snb-exchange-rate';
+
 const table = await getLatestRates({ apiKey: 'art_live_...' });
 console.log(table.rate_date, table.rates.length);
 ```
 
-## Historical data (paid plans)
+**Response:**
+
+```javascript
+{
+  bank: 'snb',
+  name: 'Swiss National Bank',
+  rate_date: '2026-07-31',
+  rates: [
+    { "base": "EUR", "quote": "CHF", "type": "monthly_average", "value": 0.92538 },
+    // … the rest of the published table (26 currencies vs CHF)
+  ],
+  disclaimer: '…'
+}
+```
+
+### Table for a date
+
+Paid plans. The official table for any date since 1914 — weekends and holidays return the most recent published date, flagged via `published_on_requested_date`, which is exactly the in-force rate a filing needs.
 
 ```js
-import { getRatesForDate, getHistory } from 'snb-exchange-rate';
+import { getRatesForDate } from 'snb-exchange-rate';
 
-// The official table for an invoice date — weekends/holidays return the
-// most recent published date, flagged via published_on_requested_date.
 const day = await getRatesForDate('2026-06-30', { apiKey: 'art_live_...' });
+// Optionally narrow to one pair:
+const one = await getRatesForDate('2026-06-30', { apiKey: 'art_live_...', source: 'EUR', target: 'CHF' });
+```
 
-// Daily series for one pair
+**Response:**
+
+```javascript
+{
+  bank: 'snb',
+  requested_date: '2026-06-30',
+  rate_date: '2026-06-30',                // the date actually published
+  published_on_requested_date: true,      // false when a weekend/holiday fell back
+  rates: [ /* the full table for that date */ ],
+  disclaimer: '…'
+}
+```
+
+### Daily time series
+
+Paid plans. One resolved rate per publication date — ready for charting, revaluation runs, or audit workpapers.
+
+```js
+import { getHistory } from 'snb-exchange-rate';
+
 const series = await getHistory(
-  { source: 'EUR', target: 'CHF', from: '2026-01-01' },
+  { source: 'EUR', target: 'CHF', from: '2026-01-01', to: '2026-07-31' },
   { apiKey: 'art_live_...' }
 );
 ```
 
-## Currencies covered
+**Response:**
+
+```javascript
+{
+  bank: 'snb',
+  source: 'EUR',
+  target: 'CHF',
+  from: '2026-01-01',
+  to: '2026-07-31',
+  count: 152,
+  rates: [
+    // one entry per publication date
+    { date: '2026-07-31', rate: 0.92538, rate_type: 'monthly_average', derived: false, method: 'published' },
+    // …
+  ],
+  disclaimer: '…'
+}
+```
+
+Pass `{ symbol: 'EUR' }` instead of `source`/`target` to get the raw published rows for one currency (all rate types, no pair resolution).
+
+---
+
+## 🗺️ Currencies covered
 
 Swiss National Bank currently publishes rates covering **27 currencies** (as of the latest table):
 
 `ARS` · `AUD` · `BRL` · `CAD` · `CHF` · `CNY` · `CZK` · `DKK` · `EUR` · `GBP` · `HKD` · `HUF` · `JPY` · `KRW` · `MXN` · `MYR` · `NOK` · `NZD` · `PLN` · `RUB` · `SEK` · `SGD` · `THB` · `TRY` · `USD` · `XDR` · `ZAR`
 
-Pairs the central bank does not print directly are resolved from this table (see below).
+## ⚖️ Published vs derived rates
 
-## Published vs derived rates
+If Swiss National Bank does not print a pair directly, the API resolves it from the central bank's own table and says so — official and computed values are never confused:
 
-If Swiss National Bank does not print a pair directly, the API resolves it from the bank's table (inverse, or a cross rate via CHF) and flags it `derived: true` with the `method` — so official and computed values are never confused.
+| `method` | `derived` | Meaning |
+| --- | --- | --- |
+| `published` | `false` | The central bank printed this pair directly |
+| `inverse` | `true` | Computed as 1 ÷ the published opposite direction |
+| `cross` | `true` | Computed via CHF from two published rates |
 
-## Notes
+## 🛡️ Error handling
 
-- Every request counts toward your AllRatesToday monthly quota. Rates change once per business day — cache a day's table locally and a small quota goes a long way.
-- Latest rates are on every plan (including free); historical dates and time series need a [paid plan](https://allratestoday.com/pricing/).
-- Full API reference: [allratestoday.com/docs#central-bank](https://allratestoday.com/docs/#central-bank) · All covered sources: [central bank rates API](https://allratestoday.com/central-bank-rates-api/)
+Errors are thrown as `Error` with `status` (HTTP code) and `body` (the API's JSON error) attached:
 
-## License
+```js
+try {
+  const pair = await getRate('EUR', 'XXX', { apiKey: 'art_live_...' });
+} catch (err) {
+  console.log(err.message); // human-readable reason
+  console.log(err.status);  // e.g. 404
+}
+```
+
+| Status | Meaning |
+| ------ | ------- |
+| — | Missing `apiKey` (thrown before any request) |
+| `400` | Malformed date or parameters |
+| `401` | Invalid API key |
+| `403` | Endpoint needs a [paid plan](https://allratestoday.com/pricing/) (historical dates & series) |
+| `404` | Pair or date range not covered by Swiss National Bank |
+| `429` | Monthly quota exceeded |
+
+## 🔷 TypeScript
+
+Full definitions ship with the package — no `@types` install:
+
+```ts
+import type { LatestRates, PairRate, DatedRates, RateEntry, HistoryQuery, RequestOptions } from 'snb-exchange-rate';
+```
+
+## 📦 CommonJS
+
+```javascript
+const { getRate } = require('snb-exchange-rate');
+
+getRate('EUR', 'CHF', { apiKey: 'art_live_...' }).then((pair) => console.log(pair.rate));
+```
+
+## 💡 Quota tips
+
+- Rates change once a month — cache the published table locally and a small monthly quota goes a long way.
+- Every request counts toward your AllRatesToday quota, shared across all AllRatesToday endpoints on your key.
+
+## 📖 Methods reference
+
+| Method | Plan | Description |
+| ------ | ---- | ----------- |
+| `getRate(source, target, { apiKey })` | Free | Latest rate for one pair, resolved from the published table |
+| `getLatestRates({ apiKey })` | Free | The central bank's full latest published table |
+| `getRatesForDate(date, { apiKey, source?, target? })` | Paid | The official table (or one pair) for a YYYY-MM-DD date |
+| `getHistory({ symbol \| source+target, from?, to? }, { apiKey })` | Paid | Daily series since 1914 |
+
+## 🔗 Links
+
+- [Swiss National Bank rates page](https://allratestoday.com/central-bank-rates-api/snb/) — live table, publication cadence, FAQ
+- [All central bank sources](https://allratestoday.com/central-bank-rates-api/)
+- [API documentation](https://allratestoday.com/docs/#central-bank) · [Interactive reference](https://allratestoday.com/api-reference/)
+- [Register (free)](https://allratestoday.com/register) · [Pricing](https://allratestoday.com/pricing/)
+- [GitHub](https://github.com/AllRates-Today/snb-exchange-rate)
+
+## 📜 License
 
 MIT
