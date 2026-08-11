@@ -1,7 +1,7 @@
 {
   "name": "snb-exchange-rate",
-  "version": "1.0.1",
-  "description": "Official Swiss National Bank (Switzerland) daily exchange rates — ~25 (monthly) currencies vs CHF, history since 1914. Zero-dependency Node.js/TypeScript client.",
+  "version": "1.1.2",
+  "description": "Official Swiss National Bank (Switzerland) monthly exchange rates — 26 currencies vs CHF, history since 1914. Zero-dependency Node.js/TypeScript client.",
   "keywords": [
     "snb",
     "swiss",
