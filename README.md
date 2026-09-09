@@ -70,10 +70,10 @@ const pair = await getRate('EUR', 'CHF', { apiKey: 'art_live_...' });
 {
   bank: 'snb',
   name: 'Swiss National Bank',
-  rate_date: '2026-07-31',   // Swiss National Bank's own publication date
+  rate_date: '2026-08-31',   // Swiss National Bank's own publication date
   source: 'EUR',
   target: 'CHF',
-  rate: 0.92538,
+  rate: 0.93629,
   rate_type: 'monthly_average',
   derived: false,
   method: 'published',
@@ -98,9 +98,9 @@ console.log(table.rate_date, table.rates.length);
 {
   bank: 'snb',
   name: 'Swiss National Bank',
-  rate_date: '2026-07-31',
+  rate_date: '2026-08-31',
   rates: [
-    { "base": "EUR", "quote": "CHF", "type": "monthly_average", "value": 0.92538 },
+    { "base": "EUR", "quote": "CHF", "type": "monthly_average", "value": 0.93629 },
     // … the rest of the published table (26 currencies vs CHF)
   ],
   disclaimer: '…'
@@ -140,7 +140,7 @@ Paid plans. One resolved rate per publication date — ready for charting, reval
 import { getHistory } from 'snb-exchange-rate';
 
 const series = await getHistory(
-  { source: 'EUR', target: 'CHF', from: '2026-01-01', to: '2026-07-31' },
+  { source: 'EUR', target: 'CHF', from: '2026-01-01', to: '2026-08-31' },
   { apiKey: 'art_live_...' }
 );
 ```
@@ -153,11 +153,11 @@ const series = await getHistory(
   source: 'EUR',
   target: 'CHF',
   from: '2026-01-01',
-  to: '2026-07-31',
+  to: '2026-08-31',
   count: 152,
   rates: [
     // one entry per publication date
-    { date: '2026-07-31', rate: 0.92538, rate_type: 'monthly_average', derived: false, method: 'published' },
+    { date: '2026-08-31', rate: 0.93629, rate_type: 'monthly_average', derived: false, method: 'published' },
     // …
   ],
   disclaimer: '…'
@@ -170,9 +170,9 @@ Pass `{ symbol: 'EUR' }` instead of `source`/`target` to get the raw published r
 
 ## 🗺️ Currencies covered
 
-Swiss National Bank currently publishes rates covering **27 currencies** (as of the latest table):
+Swiss National Bank currently publishes rates covering **26 currencies** against the CHF (as of the latest table):
 
-`ARS` · `AUD` · `BRL` · `CAD` · `CHF` · `CNY` · `CZK` · `DKK` · `EUR` · `GBP` · `HKD` · `HUF` · `JPY` · `KRW` · `MXN` · `MYR` · `NOK` · `NZD` · `PLN` · `RUB` · `SEK` · `SGD` · `THB` · `TRY` · `USD` · `XDR` · `ZAR`
+🇦🇷 `ARS` · 🇦🇺 `AUD` · 🇧🇷 `BRL` · 🇨🇦 `CAD` · 🇨🇳 `CNY` · 🇨🇿 `CZK` · 🇩🇰 `DKK` · 🇪🇺 `EUR` · 🇬🇧 `GBP` · 🇭🇰 `HKD` · 🇭🇺 `HUF` · 🇯🇵 `JPY` · 🇰🇷 `KRW` · 🇲🇽 `MXN` · 🇲🇾 `MYR` · 🇳🇴 `NOK` · 🇳🇿 `NZD` · 🇵🇱 `PLN` · 🇷🇺 `RUB` · 🇸🇪 `SEK` · 🇸🇬 `SGD` · 🇹🇭 `THB` · 🇹🇷 `TRY` · 🇺🇸 `USD` · `XDR` · 🇿🇦 `ZAR`
 
 ## ⚖️ Published vs derived rates
 
@@ -235,6 +235,14 @@ getRate('EUR', 'CHF', { apiKey: 'art_live_...' }).then((pair) => console.log(pai
 | `getLatestRates({ apiKey })` | Free | The central bank's full latest published table |
 | `getRatesForDate(date, { apiKey, source?, target? })` | Paid | The official table (or one pair) for a YYYY-MM-DD date |
 | `getHistory({ symbol \| source+target, from?, to? }, { apiKey })` | Paid | Daily series since 1914 |
+
+## 📥 Bulk data (no key)
+
+Need the whole archive rather than an API call? The same published tables are mirrored daily as open data:
+
+- Hugging Face: [AllRates/central-bank-exchange-rates](https://huggingface.co/datasets/AllRates/central-bank-exchange-rates) — one CSV per institution (`rates/snb.csv`)
+- Kaggle: [allratestoday/central-bank-exchange-rates](https://www.kaggle.com/datasets/allratestoday/central-bank-exchange-rates)
+- CDN JSON: `https://cdn.jsdelivr.net/gh/AllRates-Today/central-bank-exchange-rates@main/data/snb/latest.json`
 
 ## 🔗 Links
 
