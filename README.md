@@ -85,10 +85,10 @@ const pair = await getRate('EUR', 'CHF', { apiKey: 'art_live_...' });
 {
   bank: 'snb',
   name: 'Swiss National Bank',
-  rate_date: '2026-08-31',   // Swiss National Bank's own publication date
+  rate_date: '2026-09-30',   // Swiss National Bank's own publication date
   source: 'EUR',
   target: 'CHF',
-  rate: 0.93629,
+  rate: 0.94312,
   rate_type: 'monthly_average',
   derived: false,
   method: 'published',
@@ -113,9 +113,9 @@ console.log(table.rate_date, table.rates.length);
 {
   bank: 'snb',
   name: 'Swiss National Bank',
-  rate_date: '2026-08-31',
+  rate_date: '2026-09-30',
   rates: [
-    { "base": "EUR", "quote": "CHF", "type": "monthly_average", "value": 0.93629 },
+    { "base": "EUR", "quote": "CHF", "type": "monthly_average", "value": 0.94312 },
     // … the rest of the published table (26 currencies vs CHF)
   ],
   disclaimer: '…'
@@ -155,7 +155,7 @@ Paid plans. One resolved rate per publication date — ready for charting, reval
 import { getHistory } from 'snb-exchange-rate';
 
 const series = await getHistory(
-  { source: 'EUR', target: 'CHF', from: '2026-01-01', to: '2026-08-31' },
+  { source: 'EUR', target: 'CHF', from: '2026-01-01', to: '2026-09-30' },
   { apiKey: 'art_live_...' }
 );
 ```
@@ -168,11 +168,11 @@ const series = await getHistory(
   source: 'EUR',
   target: 'CHF',
   from: '2026-01-01',
-  to: '2026-08-31',
+  to: '2026-09-30',
   count: 152,
   rates: [
     // one entry per publication date
-    { date: '2026-08-31', rate: 0.93629, rate_type: 'monthly_average', derived: false, method: 'published' },
+    { date: '2026-09-30', rate: 0.94312, rate_type: 'monthly_average', derived: false, method: 'published' },
     // …
   ],
   disclaimer: '…'
