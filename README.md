@@ -7,7 +7,7 @@
 [![EUR/CHF today](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fallratestoday.com%2Fapi%2Fopen%2Fcentral-bank%2Fsnb%3Fsource%3DEUR%26target%3DCHF&query=%24.rate&label=EUR%2FCHF%20published%20by%20Swiss%20National%20Bank&color=0A7E8C&cacheSeconds=3600)](https://allratestoday.com/central-bank-rates-api/snb/)
 [![rate date](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fallratestoday.com%2Fapi%2Fopen%2Fcentral-bank%2Fsnb%3Fsource%3DEUR%26target%3DCHF&query=%24.rate_date&label=rate%20date&color=555&cacheSeconds=3600)](https://allratestoday.com/central-bank-rates-api/snb/)
 
-**Official Swiss National Bank (Switzerland) monthly exchange rates for Node.js and TypeScript. The published central bank rates behind tax filings, customs valuations, audits, and compliant invoicing — not market estimates, but the numbers Swiss National Bank itself prints, every month.**
+**Official Swiss National Bank (Switzerland) daily exchange rates for Node.js and TypeScript. The published central bank rates behind tax filings, customs valuations, audits, and compliant invoicing — not market estimates, but the numbers Swiss National Bank itself prints, every business day.**
 
 ## 🚀 Why this client?
 
@@ -46,41 +46,7 @@ The open endpoint serves the *latest* table only (JSON by default; add `?format=
 The image is rendered live from the keyless endpoint above, so it follows the central bank's publications on npm and on GitHub alike without a new release. The same table as text is folded below for search and copy-paste: on GitHub [a daily Action](.github/workflows/daily-table.yml) refreshes it whenever the central bank publishes a new table; on npm it is as of the package's publish date.
 
 <!-- daily-table:start -->
-<details>
-<summary>Table as text: published 2026-09-30 by Swiss National Bank — 26 rates. Updated 2026-10-27.</summary>
-
-| Base | Quote | Type | Rate |
-| --- | --- | --- | ---: |
-| ARS | CHF | monthly_average | 0.00054 |
-| AUD | CHF | monthly_average | 0.58343 |
-| BRL | CHF | monthly_average | 0.1593254 |
-| CAD | CHF | monthly_average | 0.58688 |
-| CNY | CHF | monthly_average | 0.1221011 |
-| CZK | CHF | monthly_average | 0.0388224 |
-| DKK | CHF | monthly_average | 0.1261671 |
-| EUR | CHF | monthly_average | 0.94312 |
-| GBP | CHF | monthly_average | 1.0993 |
-| HKD | CHF | monthly_average | 0.1044552 |
-| HUF | CHF | monthly_average | 0.0025839 |
-| JPY | CHF | monthly_average | 0.0052383 |
-| KRW | CHF | monthly_average | 0.0006029 |
-| MXN | CHF | monthly_average | 0.0475407 |
-| MYR | CHF | monthly_average | 0.2013008 |
-| NOK | CHF | monthly_average | 0.0873072 |
-| NZD | CHF | monthly_average | 0.47256 |
-| PLN | CHF | monthly_average | 0.2170834 |
-| RUB | CHF | monthly_average | 0.00964 |
-| SEK | CHF | monthly_average | 0.0839625 |
-| SGD | CHF | monthly_average | 0.64366 |
-| THB | CHF | monthly_average | 0.0246599 |
-| TRY | CHF | monthly_average | 0.0168369 |
-| USD | CHF | monthly_average | 0.81926 |
-| XDR | CHF | monthly_average | 1.11928 |
-| ZAR | CHF | monthly_average | 0.05052 |
-
-</details>
-
-Source: [Official rates published by SNB, served by AllRatesToday](https://allratestoday.com/central-bank-rates-api/snb/). Rates are as printed by the central bank; AllRatesToday is not affiliated with it.
+_The table is filled in by the daily workflow._
 <!-- daily-table:end -->
 
 ## 📦 Installation
@@ -131,11 +97,11 @@ const pair = await getRate('EUR', 'CHF', { apiKey: 'art_live_...' });
 {
   bank: 'snb',
   name: 'Swiss National Bank',
-  rate_date: '2026-09-30',   // Swiss National Bank's own publication date
+  rate_date: '2026-10-27',   // Swiss National Bank's own publication date
   source: 'EUR',
   target: 'CHF',
-  rate: 0.94312,
-  rate_type: 'monthly_average',
+  rate: 0.9233,
+  rate_type: 'reference',
   derived: false,
   method: 'published',
   disclaimer: 'Official rates as published by the named central bank. On weekends/holidays the most recent published rate_date is returned.'
@@ -159,8 +125,10 @@ console.log(table.rate_date, table.rates.length);
 {
   bank: 'snb',
   name: 'Swiss National Bank',
-  rate_date: '2026-09-30',
+  rate_date: '2026-10-27',
   rates: [
+    { "base": "EUR", "quote": "CHF", "type": "reference", "value": 0.9233 },
+    { "base": "USD", "quote": "CHF", "type": "reference", "value": 0.8285 },
     { "base": "EUR", "quote": "CHF", "type": "monthly_average", "value": 0.94312 },
     // … the rest of the published table (26 currencies vs CHF)
   ],
@@ -201,7 +169,7 @@ Paid plans. One resolved rate per publication date — ready for charting, reval
 import { getHistory } from 'snb-exchange-rate';
 
 const series = await getHistory(
-  { source: 'EUR', target: 'CHF', from: '2026-01-01', to: '2026-09-30' },
+  { source: 'EUR', target: 'CHF', from: '2026-01-01', to: '2026-10-27' },
   { apiKey: 'art_live_...' }
 );
 ```
@@ -214,11 +182,11 @@ const series = await getHistory(
   source: 'EUR',
   target: 'CHF',
   from: '2026-01-01',
-  to: '2026-09-30',
+  to: '2026-10-27',
   count: 152,
   rates: [
     // one entry per publication date
-    { date: '2026-09-30', rate: 0.94312, rate_type: 'monthly_average', derived: false, method: 'published' },
+    { date: '2026-10-27', rate: 0.9233, rate_type: 'reference', derived: false, method: 'published' },
     // …
   ],
   disclaimer: '…'
@@ -237,18 +205,18 @@ Swiss National Bank currently publishes rates covering **26 currencies** against
 
 ## 🏛️ Source
 
-The Swiss National Bank publishes official franc exchange rates through its data portal. The SNB publishes monthly averages (no daily official series exists), with history reaching back to 1914 — one of the longest official exchange rate records anywhere.
+The Swiss National Bank publishes 11am franc exchange rates every business day for the euro, US dollar, pound sterling and yen (SNB computed rates based on Bloomberg BFIX rates), and monthly averages for about 25 currencies through its data portal, with history reaching back to 1914 — one of the longest official exchange rate records anywhere.
 
-- Publisher's own page: [Exchange rates — SNB data portal](https://data.snb.ch/en/topics/ziredev/cube/devkum) · [www.snb.ch](https://www.snb.ch)
-- Publication: every month; the exact schedule, freshness status and any current delay are on the [Swiss National Bank rates page](https://allratestoday.com/central-bank-rates-api/snb/)
+- Publisher's own page: [Current interest rates and exchange rates](https://www.snb.ch/en/the-snb/mandates-goals/statistics/statistics-pub/current_interest_exchange_rates) · [www.snb.ch](https://www.snb.ch)
+- Publication: every business day; the exact schedule, freshness status and any current delay are on the [Swiss National Bank rates page](https://allratestoday.com/central-bank-rates-api/snb/)
 - Values are stored unmodified, with the publisher's own `rate_date` on every row — see the [methodology](https://allratestoday.com/official-rates-methodology/)
 
 ## 🧭 Reading the numbers
 
 - `value` is always **quote currency per 1 unit of base currency** (`base: "EUR", quote: "USD", value: 1.15` means 1 EUR = 1.15 USD).
-- Swiss National Bank quotes **CHF per 1 unit of foreign currency** (e.g. `base: "USD", quote: "CHF"` means CHF per one US dollar).
+- The Swiss National Bank quotes **CHF per 1 unit of foreign currency** (`base: "EUR", quote: "CHF"`). Two series share the table: daily 11am rates for EUR, USD, GBP and JPY (`rate_type: "reference"`, every business day) and monthly averages for about 25 currencies (`rate_type: "monthly_average"`, dated the last day of the month). Check `rate_type` on every row.
 - Need the other way round? Ask `getRate(target, source)` and the API inverts or crosses for you, flagged `derived: true` — never divide a published rate yourself in a compliance workflow.
-- `rate_type` tells you which of the central bank's series a row belongs to (`monthly_average` here); some publishers print buy/sell or several fixings for the same pair.
+- `rate_type` tells you which of the central bank's series a row belongs to (`reference` here); some publishers print buy/sell or several fixings for the same pair.
 
 ## 🧩 ERP & accounting systems
 
@@ -321,7 +289,7 @@ getRate('EUR', 'CHF', { apiKey: 'art_live_...' }).then((pair) => console.log(pai
 
 ## 💡 Quota tips
 
-- Rates change once a month — cache the published table locally and a small monthly quota goes a long way.
+- Rates change once per business day — cache the published table locally and a small monthly quota goes a long way.
 - Every request counts toward your AllRatesToday quota, shared across all AllRatesToday endpoints on your key.
 
 ## 📖 Methods reference
