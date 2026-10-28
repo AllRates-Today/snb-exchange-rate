@@ -47,7 +47,7 @@ The image is rendered live from the keyless endpoint above, so it follows the ce
 
 <!-- daily-table:start -->
 <details>
-<summary>Table as text: published 2026-10-27 by Swiss National Bank — 30 rates. Updated 2026-10-27.</summary>
+<summary>Table as text: published 2026-10-28 by Swiss National Bank — 30 rates. Updated 2026-10-28.</summary>
 
 | Base | Quote | Type | Rate |
 | --- | --- | --- | ---: |
@@ -59,13 +59,13 @@ The image is rendered live from the keyless endpoint above, so it follows the ce
 | CZK | CHF | monthly_average | 0.0388224 |
 | DKK | CHF | monthly_average | 0.1261671 |
 | EUR | CHF | monthly_average | 0.94312 |
-| EUR | CHF | reference | 0.9233 |
+| EUR | CHF | reference | 0.9239 |
 | GBP | CHF | monthly_average | 1.0993 |
-| GBP | CHF | reference | 1.1033 |
+| GBP | CHF | reference | 1.1032 |
 | HKD | CHF | monthly_average | 0.1044552 |
 | HUF | CHF | monthly_average | 0.0025839 |
 | JPY | CHF | monthly_average | 0.0052383 |
-| JPY | CHF | reference | 0.005253 |
+| JPY | CHF | reference | 0.005261 |
 | KRW | CHF | monthly_average | 0.0006029 |
 | MXN | CHF | monthly_average | 0.0475407 |
 | MYR | CHF | monthly_average | 0.2013008 |
@@ -78,7 +78,7 @@ The image is rendered live from the keyless endpoint above, so it follows the ce
 | THB | CHF | monthly_average | 0.0246599 |
 | TRY | CHF | monthly_average | 0.0168369 |
 | USD | CHF | monthly_average | 0.81926 |
-| USD | CHF | reference | 0.8285 |
+| USD | CHF | reference | 0.8304 |
 | XDR | CHF | monthly_average | 1.11928 |
 | ZAR | CHF | monthly_average | 0.05052 |
 
