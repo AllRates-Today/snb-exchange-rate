@@ -47,7 +47,7 @@ The image is rendered live from the keyless endpoint above, so it follows the ce
 
 <!-- daily-table:start -->
 <details>
-<summary>Table as text: published 2026-10-28 by Swiss National Bank — 30 rates. Updated 2026-10-28.</summary>
+<summary>Table as text: published 2026-10-28 by Swiss National Bank — 30 rates. Updated 2026-10-29.</summary>
 
 | Base | Quote | Type | Rate |
 | --- | --- | --- | ---: |
@@ -247,6 +247,7 @@ The Swiss National Bank publishes 11am franc exchange rates every business day f
 
 - Publisher's own page: [Current interest rates and exchange rates](https://www.snb.ch/en/the-snb/mandates-goals/statistics/statistics-pub/current_interest_exchange_rates) · [www.snb.ch](https://www.snb.ch)
 - Publication: every business day; the exact schedule, freshness status and any current delay are on the [Swiss National Bank rates page](https://allratestoday.com/central-bank-rates-api/snb/)
+- In the API: usually by **12:20 UTC** (measured over the last 10 publications). Schedule a sync at or after that time and retry hourly until `rate_date` moves; every response carries the same figure as `available_by_utc` — see [when to poll](https://allratestoday.com/docs/#when-to-poll)
 - Values are stored unmodified, with the publisher's own `rate_date` on every row — see the [methodology](https://allratestoday.com/official-rates-methodology/)
 
 ## 🧭 Reading the numbers
