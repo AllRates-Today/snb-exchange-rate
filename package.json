@@ -1,6 +1,6 @@
 {
   "name": "snb-exchange-rate",
-  "version": "1.3.24",
+  "version": "1.3.25",
   "description": "Official Swiss National Bank (Switzerland) daily exchange rates — 26 currencies vs CHF, history since 1914. Zero-dependency Node.js/TypeScript client.",
   "keywords": [
     "snb",
