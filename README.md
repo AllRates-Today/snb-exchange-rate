@@ -32,40 +32,40 @@ The image is rendered live from the keyless endpoint, so it follows the central 
 
 <!-- daily-table:start -->
 <details>
-<summary>Table as text: published 2026-11-02 by Swiss National Bank — 30 rates. Updated 2026-11-02.</summary>
+<summary>Table as text: published 2026-11-03 by Swiss National Bank — 30 rates. Updated 2026-11-03.</summary>
 
 | Base | Quote | Type | Rate |
 | --- | --- | --- | ---: |
 | ARS | CHF | monthly_average | 0.00054 |
-| AUD | CHF | monthly_average | 0.58343 |
-| BRL | CHF | monthly_average | 0.1593254 |
-| CAD | CHF | monthly_average | 0.58688 |
-| CNY | CHF | monthly_average | 0.1221011 |
-| CZK | CHF | monthly_average | 0.0388224 |
-| DKK | CHF | monthly_average | 0.1261671 |
-| EUR | CHF | monthly_average | 0.94312 |
-| EUR | CHF | reference | 0.9208 |
-| GBP | CHF | monthly_average | 1.0993 |
-| GBP | CHF | reference | 1.1016 |
-| HKD | CHF | monthly_average | 0.1044552 |
-| HUF | CHF | monthly_average | 0.0025839 |
-| JPY | CHF | monthly_average | 0.0052383 |
-| JPY | CHF | reference | 0.005196 |
-| KRW | CHF | monthly_average | 0.0006029 |
-| MXN | CHF | monthly_average | 0.0475407 |
-| MYR | CHF | monthly_average | 0.2013008 |
-| NOK | CHF | monthly_average | 0.0873072 |
-| NZD | CHF | monthly_average | 0.47256 |
-| PLN | CHF | monthly_average | 0.2170834 |
-| RUB | CHF | monthly_average | 0.00964 |
-| SEK | CHF | monthly_average | 0.0839625 |
-| SGD | CHF | monthly_average | 0.64366 |
-| THB | CHF | monthly_average | 0.0246599 |
-| TRY | CHF | monthly_average | 0.0168369 |
-| USD | CHF | monthly_average | 0.81926 |
-| USD | CHF | reference | 0.8207 |
-| XDR | CHF | monthly_average | 1.11928 |
-| ZAR | CHF | monthly_average | 0.05052 |
+| AUD | CHF | monthly_average | 0.57902 |
+| BRL | CHF | monthly_average | 0.1622793 |
+| CAD | CHF | monthly_average | 0.58594 |
+| CNY | CHF | monthly_average | 0.1239238 |
+| CZK | CHF | monthly_average | 0.0381034 |
+| DKK | CHF | monthly_average | 0.1242075 |
+| EUR | CHF | monthly_average | 0.92841 |
+| EUR | CHF | reference | 0.9152 |
+| GBP | CHF | monthly_average | 1.10132 |
+| GBP | CHF | reference | 1.0974 |
+| HKD | CHF | monthly_average | 0.1055934 |
+| HUF | CHF | monthly_average | 0.0025388 |
+| JPY | CHF | monthly_average | 0.0052475 |
+| JPY | CHF | reference | 0.005172 |
+| KRW | CHF | monthly_average | 0.0006201 |
+| MXN | CHF | monthly_average | 0.044981 |
+| MYR | CHF | monthly_average | 0.2029725 |
+| NOK | CHF | monthly_average | 0.0875863 |
+| NZD | CHF | monthly_average | 0.46691 |
+| PLN | CHF | monthly_average | 0.2118982 |
+| RUB | CHF | monthly_average | 0.00999 |
+| SEK | CHF | monthly_average | 0.0832035 |
+| SGD | CHF | monthly_average | 0.64738 |
+| THB | CHF | monthly_average | 0.0246288 |
+| TRY | CHF | monthly_average | 0.0167452 |
+| USD | CHF | monthly_average | 0.82854 |
+| USD | CHF | reference | 0.8178 |
+| XDR | CHF | monthly_average | 1.12241 |
+| ZAR | CHF | monthly_average | 0.05003 |
 
 </details>
 
